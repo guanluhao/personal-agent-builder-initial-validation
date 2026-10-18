@@ -1,4 +1,4 @@
-# Personal Agent Builder 初步验证
+# Personal Agent Builder初步验证
 
 [GitHub 公开仓库](https://github.com/guanluhao/personal-agent-builder-initial-validation)。
 

@@ -4,7 +4,7 @@
 
 不公开：本机 `.venv`、`artifacts/` 中的临时上传项目及运行记录、账号凭据、API Key、请假条、聊天截图 Word、原始“上/下”录屏，以及留作独立验收的盲测压缩包。这些材料留在用户本机，避免把个人资料和临时数据一并公开。现有私人仓库保持原状。
 
-GitHub 仓库名须使用 ASCII 字母、数字及 `.`, `-`, `_`，因此 URL 使用 `personal-agent-builder-initial-validation`；项目展示标题保留“Personal Agent Builder 初步验证”。
+GitHub 仓库名须使用 ASCII 字母、数字及 `.`, `-`, `_`，因此 URL 使用 `personal-agent-builder-initial-validation`；项目展示标题保留“Personal Agent Builder初步验证”。
 
 ## 发布前核查
 

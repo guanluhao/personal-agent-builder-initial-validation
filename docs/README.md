@@ -1,0 +1,18 @@
+# 文档索引
+
+- [公开发布说明](publication.md)
+- [最终课程视频与字幕](../course-video/README.md)
+- [实施计划](plan.md)
+- [空白构建器图形界面实施计划](gui-plan.md)
+- [技术调研](research.md)
+- [架构与流程](architecture.md)
+- [二维 V1 项目能力说明](v1-capabilities.md)
+- [变更和验证记录](changes.md)
+- [课程演示材料](demo.md)
+- [后续路线图](roadmap.md)
+- [完成度与剩余工作](completion.md)
+- [图片标注升级候选](image-upgrade.md)
+- [图形界面使用指南](user-guide.md)
+- [三分钟以内介绍视频文案](video-script.md)
+- [用户修订并用于成片的视频旁白](video-narration-draft.md)
+- [同学课程视频封面参考与采用方案](peer-video-reference.md)

@@ -1,0 +1,147 @@
+{
+  "engine": "acoustic2d",
+  "description": "课程验证用二维隧道示意配置；与原密度异常练习分开，不代表三维隧道实验。",
+  "grid": {
+    "origin_xyz_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "spacing_xyz_m": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "end_xyz_m": [
+      70.0,
+      0.0,
+      40.0
+    ]
+  },
+  "background": {
+    "vp": 2000,
+    "vs": 0,
+    "rho": 1
+  },
+  "regions": [
+    {
+      "role": "target",
+      "bounds_xyz_m": [
+        [
+          20.0,
+          40.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          20.0,
+          25.0
+        ]
+      ],
+      "vp": 0,
+      "rho": 1
+    },
+    {
+      "point_xyz_m": [
+        50.0,
+        0.0,
+        22.0
+      ],
+      "rho": 1.5
+    },
+    {
+      "point_xyz_m": [
+        58.0,
+        0.0,
+        22.0
+      ],
+      "rho": 1.5
+    },
+    {
+      "point_xyz_m": [
+        66.0,
+        0.0,
+        22.0
+      ],
+      "rho": 1.5
+    }
+  ],
+  "geometry": {
+    "shots_xyz_m": [
+      [
+        40.0,
+        0.0,
+        20.0
+      ],
+      [
+        40.0,
+        0.0,
+        25.0
+      ]
+    ],
+    "receivers_xyz_m": [
+      [
+        37.0,
+        0.0,
+        20.0
+      ],
+      [
+        35.0,
+        0.0,
+        20.0
+      ],
+      [
+        33.0,
+        0.0,
+        20.0
+      ],
+      [
+        37.0,
+        0.0,
+        25.0
+      ],
+      [
+        35.0,
+        0.0,
+        25.0
+      ],
+      [
+        33.0,
+        0.0,
+        25.0
+      ]
+    ]
+  },
+  "wavelet": {
+    "frequency_hz": 150,
+    "duration_s": 0.02,
+    "delay_s": 0.01
+  },
+  "simulation": {
+    "dt_s": 0.0001,
+    "tmax_s": 0.06,
+    "pml_cells": 12,
+    "pml_frequency_hz": 150,
+    "wave_power": 0,
+    "shot_ids": [
+      1,
+      2
+    ]
+  },
+  "imaging": {
+    "background": {
+      "vp": 2000,
+      "rho": 1
+    },
+    "data": "true_minus_background",
+    "angle_x_indices": [
+      20,
+      30,
+      40
+    ],
+    "illumination_floor": 0.0001,
+    "history_limit_gib": 2
+  }
+}

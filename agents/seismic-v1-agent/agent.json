@@ -1,0 +1,132 @@
+{
+  "name": "seismic-v1-preview-agent",
+  "source": "seismic_v1_snapshot",
+  "proposal_sha256": "b2dd818d1bc629e5deff14985bd4b171d37ee19841cc66d2ffa49d8fb244fd82",
+  "tools": [
+    {
+      "name": "preview_model",
+      "aliases": [
+        "生成模型图",
+        "观测系统绘图",
+        "预览模型"
+      ],
+      "description": "使用二维成像 V1 的真实建模和绘图函数，在新的输出目录绘制模型、观测系统与子波预览。",
+      "parameters": {
+        "config": {
+          "type": "path",
+          "default": "config.json"
+        },
+        "output": {
+          "type": "path",
+          "default": "preview_output"
+        }
+      },
+      "command": [
+        "{python}",
+        "preview.py",
+        "--config",
+        "{config}",
+        "--output",
+        "{output}"
+      ],
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "png": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "svg": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "case": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "png",
+          "svg",
+          "case"
+        ]
+      },
+      "artifact_fields": [
+        "png",
+        "svg"
+      ],
+      "timeout_seconds": 60
+    },
+    {
+      "name": "move_anomaly",
+      "aliases": [
+        "移动异常点",
+        "修改模型"
+      ],
+      "description": "在新 JSON 文件中移动二维自检模型的单网格密度异常；保留原配置。",
+      "parameters": {
+        "source": {
+          "type": "path",
+          "default": "config.json"
+        },
+        "output": {
+          "type": "path",
+          "default": "modified_config.json"
+        },
+        "x": {
+          "type": "integer",
+          "required": true,
+          "minimum": 0,
+          "maximum": 60
+        },
+        "z": {
+          "type": "integer",
+          "required": true,
+          "minimum": 0,
+          "maximum": 40
+        }
+      },
+      "command": [
+        "{python}",
+        "move_anomaly.py",
+        "--source",
+        "{source}",
+        "--output",
+        "{output}",
+        "--x",
+        "{x}",
+        "--z",
+        "{z}"
+      ],
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "config": {
+            "type": "string"
+          },
+          "x_index": {
+            "type": "integer"
+          },
+          "z_index": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "config",
+          "x_index",
+          "z_index"
+        ]
+      },
+      "artifact_fields": [
+        "config"
+      ],
+      "timeout_seconds": 10
+    }
+  ],
+  "status": "approved"
+}

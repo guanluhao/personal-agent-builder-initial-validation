@@ -1,0 +1,20 @@
+{
+  "name": "csv-personal-agent",
+  "copy_paths": ["csv_task.py", "data.csv"],
+  "tools": [
+    {
+      "name": "summarize_csv",
+      "aliases": ["汇总CSV", "统计CSV"],
+      "description": "汇总项目副本中 CSV 文件的数值列，输出 JSON。",
+      "parameters": {
+        "input": {"type": "path", "default": "data.csv"},
+        "column": {"type": "string", "default": "amount", "pattern": "[A-Za-z_][A-Za-z0-9_]*"},
+        "output": {"type": "path", "default": "summary.json"}
+      },
+      "command": ["{python}", "csv_task.py", "--input", "{input}", "--column", "{column}", "--output", "{output}"],
+      "output_schema": {"type": "object", "properties": {"column": {"type": "string"}, "count": {"type": "integer"}, "sum": {"type": "string"}, "mean": {"type": ["string", "null"]}}, "required": ["column", "count", "sum", "mean"]},
+      "artifact_params": ["output"],
+      "timeout_seconds": 10
+    }
+  ]
+}

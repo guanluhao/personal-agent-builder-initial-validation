@@ -1,0 +1,50 @@
+{
+  "name": "seismic-v1-natural-agent",
+  "copy_paths": ["preview.py", "shift_anomaly_meters.py", "extend_tunnel.py", "config.json", "tunnel_config.json", "seismic/__init__.py", "seismic/model.py", "seismic/plotting.py", "seismic/dds.py"],
+  "tools": [
+    {
+      "name": "preview_model",
+      "aliases": ["生成模型图", "预览模型", "查看观测系统"],
+      "description": "调用二维 V1 的真实建模与绘图函数，预览当前配置，生成模型和观测系统 PNG/SVG 图片。",
+      "parameters": {
+        "config": {"type": "path", "default": "config.json"},
+        "output": {"type": "path", "default": "preview_output"}
+      },
+      "command": ["{python}", "preview.py", "--config", "{config}", "--output", "{output}"],
+      "output_schema": {"type": "object", "properties": {"png": {"type": "array", "items": {"type": "string"}, "minItems": 1}, "svg": {"type": "array", "items": {"type": "string"}}, "case": {"type": "string"}}, "required": ["png", "svg", "case"]},
+      "artifact_fields": ["png", "svg"],
+      "timeout_seconds": 60
+    },
+    {
+      "name": "shift_anomaly_meters",
+      "aliases": ["把密度异常向左移", "调整密度异常", "移动异常点"],
+      "description": "把当前二维单网格密度异常按物理距离移动。left_m 是向左多少米，down_m 是向下多少米；从当前密度异常配置继续修改，原配置不覆盖。",
+      "context_group": "density_anomaly",
+      "parameters": {
+        "source": {"type": "path", "default": "config.json"},
+        "output": {"type": "path", "default": "shifted_config.json"},
+        "left_m": {"type": "integer", "required": true, "minimum": 0, "maximum": 60},
+        "down_m": {"type": "integer", "required": true, "minimum": 0, "maximum": 40}
+      },
+      "command": ["{python}", "shift_anomaly_meters.py", "--source", "{source}", "--output", "{output}", "--left-m", "{left_m}", "--down-m", "{down_m}"],
+      "output_schema": {"type": "object", "properties": {"config": {"type": "string"}, "old_xyz_m": {"type": "array", "items": {"type": "number"}, "minItems": 3, "maxItems": 3}, "new_xyz_m": {"type": "array", "items": {"type": "number"}, "minItems": 3, "maxItems": 3}, "left_m": {"type": "integer"}, "down_m": {"type": "integer"}}, "required": ["config", "old_xyz_m", "new_xyz_m", "left_m", "down_m"]},
+      "artifact_fields": ["config"],
+      "timeout_seconds": 10
+    },
+    {
+      "name": "extend_tunnel",
+      "aliases": ["延长隧道", "加长隧道"],
+      "description": "把二维隧道示意配置中唯一的目标空腔向右延长 meters 米；只改右端物理边界，保留旧配置。不是完整隧道施工或波场计算。",
+      "context_group": "tunnel",
+      "parameters": {
+        "source": {"type": "path", "default": "tunnel_config.json"},
+        "output": {"type": "path", "default": "extended_tunnel_config.json"},
+        "meters": {"type": "integer", "required": true, "minimum": 1, "maximum": 30}
+      },
+      "command": ["{python}", "extend_tunnel.py", "--source", "{source}", "--output", "{output}", "--meters", "{meters}"],
+      "output_schema": {"type": "object", "properties": {"config": {"type": "string"}, "old_length_m": {"type": "number"}, "new_length_m": {"type": "number"}, "extended_m": {"type": "integer"}}, "required": ["config", "old_length_m", "new_length_m", "extended_m"]},
+      "artifact_fields": ["config"],
+      "timeout_seconds": 10
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+*.cmd -text whitespace=cr-at-eol
+*.vbs -text whitespace=cr-at-eol

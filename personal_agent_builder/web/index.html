@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <title>个人智能体构建器 · 本机工作台</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app" data-token="__TOKEN__">
+    <aside class="sidebar" aria-label="工作台导航">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><span>✦</span></span>
+        <div><strong>个人智能体</strong><small>本机工作台</small></div>
+      </div>
+      <div class="side-kicker">我的工作台</div>
+      <button class="nav active" id="nav-build" type="button"><span class="nav-icon" aria-hidden="true">＋</span> 创建新智能体</button>
+      <div class="side-label">我的智能体 <span class="side-label-line"></span></div>
+      <div id="agent-list" class="agent-list"><p class="muted small">这里还没有智能体。<br>请先导入一份程序。</p></div>
+      <div class="sidebar-spacer"></div>
+      <div class="side-guide">
+        <span class="side-guide-label">使用步骤</span>
+        <p>四步开始使用</p>
+        <div class="side-guide-flow" aria-hidden="true"><span>导入</span><i></i><span>查看</span><i></i><span>创建</span><i></i><span>使用</span></div>
+      </div>
+      <div class="side-bottom"><span class="status-dot"></span> 本地运行 · 项目由你掌控</div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div class="topbar-title"><span class="eyebrow">个人智能体 <span class="eyebrow-divider">/</span> 工作台</span><h1 id="page-title">创建你的智能体</h1></div>
+        <div class="topbar-actions"><span class="local-chip"><span class="status-dot"></span> 本机工作台</span><button class="text-button" id="close-app" type="button">关闭应用 <span aria-hidden="true">↗</span></button></div>
+      </header>
+      <section id="build-view" class="content">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="hero-tag"><span class="hero-tag-dot"></span> 创建新智能体</div>
+            <h2>让程序帮你<br><span>完成更多事情。</span></h2>
+            <p>导入一份程序，了解它能做什么。选择你需要的功能，就可以开始使用。</p>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="visual-glow"></div>
+            <div class="visual-card visual-code"><span class="visual-card-label"><span class="visual-file-dot"></span> 你的程序</span><span class="code-line long"></span><span class="code-line medium"></span><span class="code-line short"></span><span class="code-line medium accent"></span></div>
+            <div class="visual-link"><span>✦</span></div>
+            <div class="visual-card visual-agent"><span class="visual-agent-icon">✦</span><strong>专属智能体</strong><small>等待创建</small></div>
+          </div>
+        </div>
+        <div class="steps" id="build-steps" aria-label="构建进度">
+          <div class="step current" data-step="import"><span class="step-number">01</span><div><strong>导入项目</strong><small>从你的代码开始</small></div></div>
+          <div class="step" data-step="understand"><span class="step-number">02</span><div><strong>查看功能</strong><small>了解程序用途</small></div></div>
+          <div class="step" data-step="confirm"><span class="step-number">03</span><div><strong>选择并创建</strong><small>由你决定使用哪些功能</small></div></div>
+          <div class="step" data-step="chat"><span class="step-number">04</span><div><strong>开始使用</strong><small>查看处理结果</small></div></div>
+        </div>
+        <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="拖入单个程序文件、文件夹或压缩包">
+          <div class="drop-icon" aria-hidden="true"><span class="drop-icon-arrow">↑</span><span class="drop-icon-orbit"></span></div>
+          <span class="drop-eyebrow">从你的程序开始</span>
+          <h2>把程序拖到这里</h2>
+          <p>支持单个 Python 程序文件、程序文件夹或压缩包。导入后会显示它能做什么。</p>
+          <div class="drop-actions"><button id="choose-file" class="primary" type="button">选择程序文件 <span aria-hidden="true">→</span></button><button id="choose-folder" class="secondary" type="button">选择文件夹</button><button id="choose-zip" class="secondary" type="button">选择压缩包</button></div>
+          <input id="file-input" type="file" accept=".py" hidden><input id="folder-input" type="file" webkitdirectory multiple hidden><input id="zip-input" type="file" accept=".zip" hidden>
+          <div class="drop-foot"><span class="drop-safe-dot"></span> 分析前不运行程序 <span class="drop-foot-divider">·</span> 最多 250 个文件，单个文件不超过 1 兆，合计不超过 20 兆</div>
+        </div>
+        <div id="upload-status" class="notice hidden" role="status" aria-live="polite"></div>
+        <section id="analysis-section" class="hidden" aria-label="项目分析与生成">
+          <div class="section-head"><div><span class="section-index">第一步 · 了解程序</span><h2>这份程序能做什么</h2><p>以下功能还没有运行，请在下一步选择并检查。</p></div><span class="badge"><span class="badge-dot"></span> 待检查</span></div>
+          <div id="report" class="report card"></div>
+          <div class="section-head"><div><span class="section-index">第二步 · 选择功能</span><h2>选择要使用的功能</h2><p>先选择这份程序能做的事；测试资料可以稍后再提供。</p></div></div>
+          <div id="candidates"></div>
+          <section class="planning card" aria-label="确定智能体的使用方式">
+            <span class="section-index">第三步 · 商量使用方式</span><h2>你希望它怎样帮你？</h2>
+            <p>用自己的话说即可。软件会根据这份程序追问关键细节，再给你看创建方案。以后可以在同一个智能体里反复添加新文件。</p>
+            <textarea id="agent-intent" maxlength="2000" placeholder="例如：每次给它一份新资料，让它先看懂内容；不确定时先问我，结果要方便查看。"></textarea>
+            <button id="ask-plan" class="secondary" type="button">讨论我的使用方式</button>
+            <div id="plan-questions" class="plan-questions hidden"></div>
+            <button id="finish-plan" class="secondary hidden" type="button">查看创建方案</button>
+            <div id="plan-summary" class="plan-summary hidden"></div>
+          </section>
+          <div class="approval card"><div class="approval-head"><span class="approval-icon" aria-hidden="true">✓</span><div><strong>确认创建</strong><small>先核对上面的使用方案</small></div></div><label><input id="confirm" type="checkbox"> 我已核对使用方案，同意创建智能体，并仅在测试资料齐全时试运行所选功能；原始程序不会被修改。</label><p>请仅导入你信任、且运行时间和费用可以接受的程序。</p><button id="generate" class="primary" type="button" disabled>按方案创建 <span aria-hidden="true">→</span></button></div>
+        </section>
+      </section>
+      <section id="chat-view" class="content hidden">
+        <div class="chat-heading"><div><span class="section-index">专属智能体 · 已准备好</span><h2 id="agent-title">智能体</h2><p id="agent-tools" class="subtle"></p></div><button id="adjust-agent" class="secondary" type="button">调整这个智能体</button><button id="revert-adjust" class="secondary hidden" type="button">撤销上次调整</button><button id="rollback-upgrade" class="secondary hidden" type="button">恢复上一个版本</button><button id="new-project" class="secondary" type="button">＋ 导入另一份程序</button></div>
+        <section id="revision-panel" class="planning card hidden" aria-label="调整已有智能体">
+          <h2>想怎样调整它？</h2><p>可以描述你希望它怎样提问、解释结果或呈现日常使用方式。需要程序新增功能时，软件会引导你走修改与测试流程。</p>
+          <textarea id="revision-input" maxlength="2000" placeholder="例如：处理新文件时先确认我要看的内容；结果先用几句话解释，再给出原始数据。"></textarea>
+          <button id="revision-discuss" class="secondary" type="button">讨论调整方式</button>
+          <div id="revision-questions" class="plan-questions hidden"></div>
+          <button id="revision-finalize" class="secondary hidden" type="button">查看调整方案</button>
+          <div id="revision-summary" class="plan-summary hidden"></div>
+          <button id="revision-activate" class="primary hidden" type="button">确认并应用调整</button>
+          <p id="revision-status" role="status"></p>
+        </section>
+        <div id="test-results" class="test-results"></div>
+        <div class="conversation-label"><span class="status-dot"></span> 对话工作区 <span>调用与结果会显示在这里</span></div>
+        <div id="messages" class="messages" aria-live="polite"><div class="assistant-message">你好，告诉我你想做什么。我会在这里显示处理结果和文件。</div></div>
+        <div id="chat-files" class="chat-files" tabindex="0"><button id="chat-add-file" class="secondary" type="button">添加本次文件</button><span id="chat-file-status">可以反复添加新文件，不用重新创建智能体</span><input id="chat-file-input" type="file" accept=".csv,.tsv,.txt,.json,.toml,.yaml,.yml,.ini,.cfg" multiple hidden></div>
+        <form id="chat-form" class="composer"><span class="composer-spark" aria-hidden="true">✦</span><input id="chat-input" type="text" maxlength="1000" placeholder="告诉我你想做什么…" autocomplete="off" aria-label="输入你的需求"><button class="primary" type="submit">发送 <span aria-hidden="true">↗</span></button></form>
+        <p class="footer-note">需要新功能时，可以先查看修改内容和检查结果，再决定是否启用。</p>
+      </section>
+    </main>
+  </div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

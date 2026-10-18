@@ -1,5 +1,7 @@
 # Personal Agent Builder 初步验证
 
+[GitHub 公开仓库](https://github.com/guanluhao/personal-agent-builder-initial-validation)。
+
 这是《大模型智能体驾驭工程》课程项目的公开初步验证版。使用者导入自己的 Python 程序后，构建器先分析源码并说明程序能做什么；确认功能范围后生成可独立运行的个人智能体。智能体通过本机已登录的官方 Codex 命令行理解日常提问，并调用已确认的 Python 功能。新功能先在隔离副本中修改和测试，确认后才启用。
 
 ## 当前成果

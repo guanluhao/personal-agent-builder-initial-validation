@@ -12,3 +12,7 @@ GitHub 仓库名须使用 ASCII 字母、数字及 `.`, `-`, `_`，因此 URL �
 - 另外收录最终录屏及字幕、较早的课程演示及字幕。
 - 用自动规则扫描准备提交的文本文件中的密钥和凭据样式，并复核待提交文件清单与大文件。
 - 运行发布副本自动测试，核对 GitHub 仓库可见性、默认分支和远端文件。实际结果见 [变更记录](changes.md)。
+
+## 远端核验结果
+
+2026-10-19 已推送至 [guanluhao/personal-agent-builder-initial-validation](https://github.com/guanluhao/personal-agent-builder-initial-validation)。GitHub 返回可见性 `public`、默认分支 `main`；远端提交 `fc55a8fb055ab25054099600da7da1753f0b16a4` 与本地一致。远端 API 已读取 README、测试文件、网页入口、最终演示视频（24,196,756 字节）及字幕。发布副本自动测试 **44 passed in 73.50s**，136 个待提交文件的文本凭据样式扫描没有发现密钥。
